@@ -1,6 +1,6 @@
 {
   "name": "create-graphql-server-logging",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "logging enhancement for create-graphql-server",
   "main": "index.js",
   "repository": "git@github.com:tobkle/create-graphql-server-logging.git",
