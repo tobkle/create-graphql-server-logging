@@ -55,3 +55,6 @@ Add in package.json the following section:
 },
 ```
 
+## API Documentation
+[Goto API Documentation](https://tobkle.github.io/create-graphql-server-logging/)
+
