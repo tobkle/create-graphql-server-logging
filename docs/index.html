@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl">
+  <title data-ice="title">Home | create-graphql-server-find-by-ids</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Adds findByIds to create-graphql-server"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="create-graphql-server-find-by-ids"><meta property="twitter:description" content="Adds findByIds to create-graphql-server"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/tobkle/create-graphql-server-logging"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOG_LEVEL">LOG_LEVEL</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOG_MAX_FILES">LOG_MAX_FILES</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-LOG_MAX_SIZE">LOG_MAX_SIZE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-modulePath">modulePath</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib">lib</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getLogFilename">getLogFilename</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logger">logger</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><p><a href="http://badge.fury.io/js/create-graphql-server-logging"><img src="https://badge.fury.io/js/create-graphql-server-logging.svg" alt="npm version"></a> <a href="https://travis-ci.org/tobkle/create-graphql-server-logging"><img src="https://travis-ci.org/tobkle/create-graphql-server-logging.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/github/tobkle/create-graphql-server-logging?branch=master"><img src="https://coveralls.io/repos/github/tobkle/create-graphql-server-logging/badge.svg?branch=master" alt="Coverage Status"></a></p>
+<h1 id="create-graphql-server-logging">create-graphql-server-logging</h1><p>Adds logging functions to the GraphQL-Server-Generator: <strong>create-graphql-server</strong></p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import { getLogFilename, logger } from &apos;create-graphql-server-logging&apos;;</code>
+</code></pre>
+<p>adds functions:</p>
+<ul>
+<li>getLogFilename</li>
+<li>logger</li>
+</ul>
+<p>With getLogFilename it determines the loggers path and filename from your package.json section.
+The logger function provides a winston logging environment.</p>
+<h2 id="usage">Usage</h2><p>Your server logs now all Graphql requests and nice formatted queries to the log file, which you&apos;ve defined. This works only with loglevel = debug. It also allows logfile sizes of 5 MB and maximum 5 logfiles.</p>
+<h2 id="installation">Installation</h2><pre><code class="lang-bash"><code class="source-code prettyprint">yarn add create-graphql-server-logging</code>
+</code></pre>
+<p>In the create-graphql-server project add the following lines to server/index.js, so you are adding the logger to the server&apos;s context. Afterwards you can use it for example in your model files with &quot;this.context.log&quot;.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">...
+import { getLogFilename, logger } from &apos;create-graphql-server-logging&apos;; // &lt;===
+const log = logger(getLogFilename()); // &lt;=== here
+...
+
+app.use(&apos;/graphql&apos;, (req, res, next) =&gt; {
+  passport.authenticate(&apos;jwt&apos;, { session: false }, (err, me) =&gt; {
+    req.context = addModelsToContext({ db, pubsub, me, UserCollection, log }); // &lt;=== here
+    graphqlExpress(() =&gt; {
+    ...
+    ...
+    })
+  })
+});</code>
+</code></pre>
+<p>Add in package.json the following section:</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">&quot;scripts&quot;: {
+  ...
+},
+&quot;config&quot;: {                                        // &lt;===
+  &quot;logfile&quot;: &quot;log/all-logs-readable.log&quot;,        // &lt;===
+  &quot;loglevel&quot;: &quot;debug&quot;,                            // &lt;===
+  &quot;maxsize&quot;: 5,                                    // &lt;===
+  &quot;maxfiles&quot;: 5                                    // &lt;===
+},</code>
+</code></pre>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
